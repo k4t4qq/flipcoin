@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Монетка</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        img { width: 280px; height: 300px; }
+        button { padding: 10px 20px; margin: 10px; cursor: pointer; }
+        input { width: 100px; text-align: center; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h1>Монетка</h1>
+    <img id="coinImage" src="orel.png" alt="Монетка">
+    <br>
+    <label for="flipCount">Скільки разів підкинути: </label>
+    <input type="text" id="flipCount" value="1" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+    <br>
+    <button onclick="flipCoin()">Підкинути монетку</button>
+    <p id="resultText"></p>
+
+    <script>
+        function flipCoin() {
+            const flips = parseInt(document.getElementById('flipCount').value);
+            if (isNaN(flips) || flips < 1) {
+                document.getElementById('resultText').textContent = 'Введіть коректну кількість!';
+                return;
+            }
+            let orelCount = 0;
+            let reshkaCount = 0;
+            const coinImage = document.getElementById('coinImage');
+            const resultText = document.getElementById('resultText');
+
+            for (let i = 0; i < flips; i++) {
+                let side = Math.random() < 0.5 ? "orel" : "reshka";
+                if (side === "orel") {
+                    orelCount++;
+                    coinImage.src = "orel.png";
+                } else {
+                    reshkaCount++;
+                    coinImage.src = "reshka.png";
+                }
+            }
+
+            resultText.textContent = `Орел: ${orelCount}, Решка: ${reshkaCount}`;
+        }
+    </script>
+</body>
+</html>
